@@ -22,4 +22,29 @@ public class CategoryServiceImpl implements CategoryService {
 		return mapper.findAll();
 	}
 
+	@Override
+	public void addRootCategory(String name, String descr) {
+		mapper.addRootCategory(name, descr);
+	}
+
+	@Override
+	public List<Category> findToTree() {
+		return mapper.findToTree();
+	}
+
+	@Override
+	public void addChildCategory(String name, String descr, int pid) {
+		int grade = mapper.findByParentId(pid);
+		//添加操作
+		mapper.addChildCategory(new Category(name, descr, pid, grade+1));
+		mapper.updataParent(pid);
+		
+	}
+
+	@Override
+	public Category findById(int id) {
+		
+		return mapper.findById(id);
+	}
+
 }
